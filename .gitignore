@@ -1,6 +1,8 @@
 .vs/
 Debug/
 Release/
-
 projects/astc-transcoder/x64/
+
+.editorconfig
 projects/astc-transcoder/astc-transcoder.vcxproj.user
+sources/astc-transcoder/windows/main.aps

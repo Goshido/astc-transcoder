@@ -123,10 +123,11 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(Intdir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AdditionalOptions>/wd4711 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,10 +145,11 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(Intdir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AdditionalOptions>/wd4711 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,12 +159,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\main.cpp" />
+    <ClCompile Include="..\..\sources\astc-transcoder\command_line_parser.cpp" />
+    <ClCompile Include="..\..\sources\astc-transcoder\main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\astc-transcoder\command_line_parser.h" />
+    <ClInclude Include="..\..\include\astc-transcoder\version.h" />
     <ClInclude Include="..\..\include\GXCommon\GXWarning.h" />
     <ClInclude Include="..\..\include\GXCommon\Windows\GXWarning.h" />
     <ClInclude Include="..\..\include\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\main.rc" />
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\version.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

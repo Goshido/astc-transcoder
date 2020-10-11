@@ -19,10 +19,19 @@
     <Filter Include="Header Files\GXCommon\Windows">
       <UniqueIdentifier>{f83c580b-6c1b-4495-9c04-d9b033033836}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\astc-transcoder">
+      <UniqueIdentifier>{04fb4076-536c-4160-b34b-e6ef9089b0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\astc-transcoder">
+      <UniqueIdentifier>{c9f4c794-715f-4aae-8cd9-82cc7b489663}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\sources\astc-transcoder\command_line_parser.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\astc-transcoder\main.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,5 +44,19 @@
     <ClInclude Include="..\..\include\GXCommon\GXWarning.h">
       <Filter>Header Files\GXCommon</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\version.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\command_line_parser.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\main.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\version.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
