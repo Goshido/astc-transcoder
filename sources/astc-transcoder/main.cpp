@@ -1,28 +1,46 @@
 #include <stdafx.h>
 #include <astc-transcoder/command_line_parser.h>
+#include <astc-transcoder/version.h>
 
 
 namespace astc_transcoder {
 
-void OnExitApp ()
+[[nodiscard]] static int OnHelpApp ()
 {
-    // TODO
+    constexpr char const man[] =
+#include <astc-transcoder/help.h>
+    ;
+
+    std::cout << man;
+    return EXIT_SUCCESS;
 }
 
-void OnTranscodeApp ()
+[[nodiscard]] static int OnTranscodeApp ()
 {
-    // TODO
+    std::cerr << "Implement me, please." << std::endl;
+    return EXIT_FAILURE;
 }
 
-} // namespace astc_transcoder 
+[[nodiscard]] static int OnVersionApp ()
+{
+    std::cout << ASTC_TRANSCODER_VERSION_MAJOR << '.'
+        << ASTC_TRANSCODER_VERSION_MINOR << '.'
+        << ASTC_TRANSCODER_VERSION_RELEASE << '.'
+        << ASTC_TRANSCODER_VERSION_BUILD;
+
+    return EXIT_SUCCESS;
+}
+
+} // namespace astc_transcoder
 
 int main ( int argc, char** argv )
 {
-    astc_transcoder::CommandLineParser ( argc,
+    astc_transcoder::CommandLineParser const parser ( argc,
         argv,
-        &astc_transcoder::OnExitApp,
-        &astc_transcoder::OnTranscodeApp
+        &astc_transcoder::OnHelpApp,
+        &astc_transcoder::OnTranscodeApp,
+        &astc_transcoder::OnVersionApp
     );
 
-    return EXIT_SUCCESS;
+    return parser.Run ();
 }

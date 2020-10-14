@@ -127,7 +127,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(Intdir)$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <AdditionalOptions>/wd4711 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/wd4710 /wd4711 /wd4820 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,7 +149,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(Intdir)$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <AdditionalOptions>/wd4711 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/wd4710 /wd4711 /wd4820 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -4,14 +4,24 @@
 
 namespace astc_transcoder {
 
-typedef void ( *ExitAppHandler ) ();
-typedef void ( *TranscodeAppHandler ) ();
+typedef int ( *HelpHandler ) ();
+typedef int ( *TranscodeHandler ) ();
+typedef int ( *VersionHandler ) ();
 
 class CommandLineParser final
 {
     private:
-        [[maybe_unused]] ExitAppHandler const           _exitCallback;
-        [[maybe_unused]] TranscodeAppHandler const      _transcodeCallback;
+        using CommandHandler = int ( CommandLineParser::* ) ( int argc, char const* const* argv ) const;
+
+    private:
+        int                                                             _argc;
+        char const* const*                                              _argv;
+
+        std::unordered_map<std::string_view, CommandHandler> const      _handlers;
+
+        HelpHandler const                                               _helpCallback;
+        TranscodeHandler const                                          _transcodeCallback;
+        VersionHandler const                                            _versionCallback;
 
     public:
         CommandLineParser () = delete;
@@ -24,11 +34,21 @@ class CommandLineParser final
 
         explicit CommandLineParser ( int argc,
             char const* const* argv,
-            ExitAppHandler exitCallack,
-            TranscodeAppHandler transcodeCallback
+            HelpHandler helpCallback,
+            TranscodeHandler transcodeCallback,
+            VersionHandler versionCallback
         );
 
         ~CommandLineParser () = default;
+
+        [[nodiscard]] int Run () const;
+
+    private:
+        [[nodiscard]] int OnHelp ( int argc, char const* const* argv ) const;
+        [[nodiscard]] int OnTranscode ( int argc, char const* const* argv ) const;
+        [[nodiscard]] int OnVersion ( int argc, char const* const* argv ) const;
+
+        [[nodiscard]] int OnInvalidCommand () const;
 };
 
 } // namespace astc_transcoder
