@@ -1,11 +1,12 @@
 #include <stdafx.h>
 #include <astc-transcoder/command_line_parser.h>
+#include <astc-transcoder/transcoder.h>
 #include <astc-transcoder/version.h>
 
 
 namespace astc_transcoder {
 
-[[nodiscard]] static int OnHelpApp ()
+[[nodiscard]] static int OnHelp ()
 {
     constexpr char const man[] =
 #include <astc-transcoder/help.h>
@@ -15,13 +16,17 @@ namespace astc_transcoder {
     return EXIT_SUCCESS;
 }
 
-[[nodiscard]] static int OnTranscodeApp ()
+[[nodiscard]] static int OnTranscode ( uint8_t blockWidth,
+    uint8_t blockHeight,
+    char const* inputFile,
+    char const* outputFile
+)
 {
-    std::cerr << "Implement me, please." << std::endl;
-    return EXIT_FAILURE;
+    Transcoder const transcoder ( blockWidth, blockHeight, inputFile, outputFile );
+    return transcoder.Run ();
 }
 
-[[nodiscard]] static int OnVersionApp ()
+[[nodiscard]] static int OnVersion ()
 {
     std::cout << ASTC_TRANSCODER_VERSION_MAJOR << '.'
         << ASTC_TRANSCODER_VERSION_MINOR << '.'
@@ -37,9 +42,9 @@ int main ( int argc, char** argv )
 {
     astc_transcoder::CommandLineParser const parser ( argc,
         argv,
-        &astc_transcoder::OnHelpApp,
-        &astc_transcoder::OnTranscodeApp,
-        &astc_transcoder::OnVersionApp
+        &astc_transcoder::OnHelp,
+        &astc_transcoder::OnTranscode,
+        &astc_transcoder::OnVersion
     );
 
     return parser.Run ();

@@ -5,7 +5,13 @@
 namespace astc_transcoder {
 
 typedef int ( *HelpHandler ) ();
-typedef int ( *TranscodeHandler ) ();
+
+typedef int ( *TranscodeHandler ) ( uint8_t blockWidth,
+    uint8_t blockHeight,
+    char const* inputFile,
+    char const* outputFile
+);
+
 typedef int ( *VersionHandler ) ();
 
 class CommandLineParser final
@@ -41,14 +47,18 @@ class CommandLineParser final
 
         ~CommandLineParser () = default;
 
+        // The method returns "main" function return code.
         [[nodiscard]] int Run () const;
 
     private:
+        // The handlers return "main" function return code.
         [[nodiscard]] int OnHelp ( int argc, char const* const* argv ) const;
+        [[nodiscard]] int OnInvalidCommand () const;
         [[nodiscard]] int OnTranscode ( int argc, char const* const* argv ) const;
         [[nodiscard]] int OnVersion ( int argc, char const* const* argv ) const;
 
-        [[nodiscard]] int OnInvalidCommand () const;
+        [[nodiscard]] static bool ParseFilePath ( void* result, int &count, char const* const* &params );
+        [[nodiscard]] static bool ParseUByte ( void* result, int &count, char const* const* &params );
 };
 
 } // namespace astc_transcoder

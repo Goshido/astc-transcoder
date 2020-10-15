@@ -8,6 +8,9 @@ GX_DISABLE_COMMON_WARNINGS
 
 #include <cstdlib>
 #include <iostream>
+#include <map>
+#include <regex>
+#include <set>
 #include <string_view>
 #include <unordered_map>
 
