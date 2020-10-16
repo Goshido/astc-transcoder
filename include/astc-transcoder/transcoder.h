@@ -7,9 +7,9 @@ namespace astc_transcoder {
 class Transcoder final
 {
     private:
-        [[maybe_unused]] uint8_t        _blockWidth;
-        [[maybe_unused]] uint8_t        _blockHeight;
-        [[maybe_unused]] char const*    _inputFile;
+        uint8_t                         _blockWidth;
+        uint8_t                         _blockHeight;
+        char const*                     _inputFile;
         [[maybe_unused]] char const*    _outputFile;
 
     public:
@@ -27,6 +27,14 @@ class Transcoder final
 
         // The method returns "main" function return code.
         [[nodiscard]] int Run () const;
+
+    private:
+        [[nodiscard]] bool CheckInputFile () const;
+        [[nodiscard]] bool ResolveBlockSize ( char const* &nativeBlockSize ) const;
+
+        [[nodiscard]] static bool CheckRpcStatus ( RPC_STATUS status, char const* message );
+        [[nodiscard]] static bool CreateTempFile ( std::string &path );
+        [[nodiscard]] static bool FindCompressonator ( std::string &path );
 };
 
 } // namespace astc_transcoder
