@@ -1,5 +1,5 @@
-#ifndef TRANCODER_H
-#define TRANCODER_H
+#ifndef TRANSCODER_H
+#define TRANSCODER_H
 
 
 namespace astc_transcoder {
@@ -40,4 +40,4 @@ class Transcoder final
 } // namespace astc_transcoder
 
 
-#endif // TRANCODER_H
+#endif // TRANSCODER_H
