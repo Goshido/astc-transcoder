@@ -68,7 +68,6 @@ Name: "{commondesktop}\{#APPLICATION_NAME}"; Filename: "{app}\{#APPLICATION_EXE_
 Name: "{group}\{cm:UninstallProgram,{#APPLICATION_NAME}}"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\{#APPLICATION_EXE_FILE_NAME}"; Description: {cm:LaunchProgram, {#StringChange(APPLICATION_NAME, '&', '&&')}}; Flags: nowait postinstall skipifsilent
 Filename: {tmp}\vc_redist.x64.exe; Parameters: "/install /quiet /norestart"; StatusMsg: {cm:installingVS2019}
 
 [Messages]
