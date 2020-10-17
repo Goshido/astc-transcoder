@@ -8,8 +8,10 @@ Transcoder is a [CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool
 - `tga`
 - `bmp`
 
-## How to use
+## Deployment
+Tutorial video is [here](https://drive.google.com/file/d/13Yli_vlsDumqeN2v-G_JgP3BvFET9agr/view?usp=sharing).
 
+## How to use
 Please refer to the [documentation](./documentation/manual.md).
 
 ## Quick start instructions
