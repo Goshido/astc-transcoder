@@ -1,0 +1,11 @@
+/.vs/
+/Debug/
+/Installer/
+/Release/
+/projects/astc-transcoder/x64/
+/projects/installer/installer/
+
+.editorconfig
+/projects/astc-transcoder/astc-transcoder.vcxproj.user
+/projects/installer/installer.vcxproj.user
+/sources/astc-transcoder/windows/main.aps

@@ -1,0 +1,7 @@
+Workstation MUST install Inno Setup 6.0.5 (u) [unicode].
+
+Workstation MUST define two environment variables to succeed:
+1) VS2019_X64_REDIST - for example D:\Programs\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\v142\vc_redist.x64.exe
+2) INNO_SETUP_6_0_5_COMPILER_PATH - for example D:\Programs\Inno Setup 6\ISCC.exe
+
+Solution configuration MUST be equal to "Installer".

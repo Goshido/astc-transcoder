@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GXCommon">
+      <UniqueIdentifier>{6ed82944-8fa8-4726-900b-0d453e96ed7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GXCommon\Windows">
+      <UniqueIdentifier>{f83c580b-6c1b-4495-9c04-d9b033033836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\astc-transcoder">
+      <UniqueIdentifier>{04fb4076-536c-4160-b34b-e6ef9089b0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\astc-transcoder">
+      <UniqueIdentifier>{c9f4c794-715f-4aae-8cd9-82cc7b489663}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sources\astc-transcoder\command_line_parser.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\astc-transcoder\main.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\astc-transcoder\transcoder.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\astc-transcoder\crash_report.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GXCommon\Windows\GXWarning.h">
+      <Filter>Header Files\GXCommon\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GXCommon\GXWarning.h">
+      <Filter>Header Files\GXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\version.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\command_line_parser.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\transcoder.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\crash_report.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\main.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="..\..\sources\astc-transcoder\windows\version.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
