@@ -6,8 +6,13 @@ namespace astc_transcoder {
 
 constexpr static char const COMPRESSONATOR_PATH_ENV[] = "COMPRESSONATOR_PATH";
 constexpr static char const COMPRESSONATOR_TOOL_ENV[] = "CompressonatorCLI.exe";
+constexpr static char const INDENT[] = "    ";
+constexpr static int const MAX_SUPPORTED_MIPS = 20;
+constexpr static double const QUALITY = 1.0;
 constexpr static char const TEMP_DIRECTORY_ENV[] = "TEMP";
 constexpr static char const TEMP_SUBDIRECTORY[] = "astc-transcoder";
+constexpr static int const THREAD_COUNT = 16;
+constexpr static DWORD const DEFAULT_RETURN_CODE = 42;
 
 Transcoder::Transcoder ( uint8_t blockWidth, uint8_t blockHeight, char const* inputFile, char const* outputFile ):
     _blockWidth ( blockWidth ),
@@ -23,24 +28,29 @@ int Transcoder::Run () const
     if ( !CheckInputFile () )
         return EXIT_FAILURE;
 
-    [[maybe_unused]] char const* nativeBlockSize = nullptr;
+    char const* nativeBlockSize = nullptr;
 
     if ( !ResolveBlockSize ( nativeBlockSize ) )
         return EXIT_FAILURE;
 
-    [[maybe_unused]] std::string compressonator;
+    std::string compressonator;
 
     if ( !FindCompressonator ( compressonator ) )
         return EXIT_FAILURE;
 
-    [[maybe_unused]] std::string tempFile;
+    std::string tempFile;
 
     if ( !CreateTempFile ( tempFile ) )
         return EXIT_FAILURE;
 
-    // TODO
+    if ( !RunDecompressStep ( tempFile, compressonator ) )
+        return EXIT_FAILURE;
 
-    return EXIT_SUCCESS;
+    bool const convertResult = RunConvertStep ( tempFile, std::move ( compressonator ), nativeBlockSize );
+    bool const removeResult = RemoveTempFile ( std::move ( tempFile ) );
+    bool const result = convertResult ? removeResult : false;
+
+    return result ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 bool Transcoder::CheckInputFile () const
@@ -48,7 +58,7 @@ bool Transcoder::CheckInputFile () const
     if ( std::filesystem::exists ( _inputFile ) )
         return true;
 
-    std::cerr << "Input file does not exist:" << std::endl << "    " << _inputFile << std::endl;
+    std::cerr << "Input file does not exist:" << std::endl << INDENT << _inputFile << std::endl;
     return false;
 }
 
@@ -89,10 +99,39 @@ bool Transcoder::ResolveBlockSize ( char const* &nativeBlockSize ) const
         << " is unsupported. The supported block sizes:";
 
     for ( auto const& [tmp, native] : supported )
-        std::cerr << std::endl << "    " << native;
+        std::cerr << std::endl << INDENT << native;
 
     std::cerr << std::endl;
     return false;
+}
+
+bool Transcoder::RunConvertStep ( std::string const &tempFile,
+    std::string &&compressonator,
+    char const* nativeBlockSize
+) const
+{
+    std::stringstream stream;
+
+    stream << '"' << compressonator << R"__(" -fd ASTC -miplevels )__" << MAX_SUPPORTED_MIPS << " -BlockRate "
+        << nativeBlockSize << " -Quality " << QUALITY << " -NumThreads " << THREAD_COUNT
+        << R"__( ")__" << tempFile << R"__(" ")__" << _outputFile << '"';
+
+    std::string process = stream.str ();
+
+    std::cout << "Step #2: Converting:" << std::endl << INDENT << process << std::endl;
+
+    return RunProcess ( std::move ( process ) );
+}
+
+bool Transcoder::RunDecompressStep ( std::string const &tempFile, std::string const &compressonator ) const
+{
+    std::stringstream stream;
+    stream << '"' << compressonator << R"__(" ")__" << _inputFile << R"__(" ")__" << tempFile << '"';
+    std::string process = stream.str ();
+
+    std::cout << "Step #1: Decompressing:" << std::endl << INDENT << process << std::endl;
+
+    return RunProcess ( std::move ( process ) );
 }
 
 bool Transcoder::CheckRpcStatus ( RPC_STATUS status, char const* message )
@@ -125,7 +164,7 @@ bool Transcoder::CreateTempFile ( std::string &path )
 
     if ( !result && code.value () != ERROR_SUCCESS )
     {
-        std::cerr << "Can't create directory for temporary file:" << std::endl << "    " << path << std::endl
+        std::cerr << "Can't create directory for temporary file:" << std::endl << INDENT << path << std::endl
             << "Error: " << code.value () << '.' << std::endl;
 
         return false;
@@ -133,6 +172,7 @@ bool Transcoder::CreateTempFile ( std::string &path )
 
     path += '/';
     path += reinterpret_cast<char const*> ( nameBase );
+    path += ".tga";
 
     return CheckRpcStatus ( RpcStringFreeA ( &nameBase ), "Can't free the name string for temporary file." );
 }
@@ -160,11 +200,51 @@ bool Transcoder::FindCompressonator ( std::string &path )
     if ( std::filesystem::exists ( path ) )
         return true;
 
-    std::cerr << "Can't find CompressonatorCLI in the directory:" << std::endl << "    "
+    std::cerr << "Can't find CompressonatorCLI in the directory:" << std::endl << INDENT
         << compressonatorDirectory << std::endl << std::endl << R"__(Please check the environment variable ")__"
         << COMPRESSONATOR_PATH_ENV << R"__(")__" << std::endl;
 
     return false;
+}
+
+bool Transcoder::RemoveTempFile ( std::string &&path )
+{
+    return std::filesystem::remove ( path );
+}
+
+bool Transcoder::RunProcess ( std::string &&process )
+{
+    PROCESS_INFORMATION processInfo {};
+    memset ( &processInfo, 0, sizeof ( processInfo ) );
+
+    STARTUPINFOA startupInfo;
+    memset ( &startupInfo, 0, sizeof ( startupInfo ) );
+    startupInfo.cb = sizeof ( startupInfo );
+
+    BOOL const result = CreateProcessA ( nullptr,
+        const_cast<char*> ( process.c_str () ),
+        nullptr,
+        nullptr,
+        FALSE,
+        0U,
+        nullptr,
+        nullptr,
+        &startupInfo,
+        &processInfo
+    );
+
+    if ( !result )
+        return false;
+
+    WaitForSingleObject ( processInfo.hProcess, INFINITE );
+
+    DWORD subResult = DEFAULT_RETURN_CODE;
+    GetExitCodeProcess ( processInfo.hProcess, &subResult );
+
+    CloseHandle ( processInfo.hThread );
+    CloseHandle ( processInfo.hProcess );
+
+    return subResult == EXIT_SUCCESS;
 }
 
 } // namespace astc_transcoder 

@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\sources\astc-transcoder\transcoder.cpp">
       <Filter>Source Files\astc-transcoder</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\astc-transcoder\crash_report.cpp">
+      <Filter>Source Files\astc-transcoder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\stdafx.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files\astc-transcoder</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\astc-transcoder\transcoder.h">
+      <Filter>Header Files\astc-transcoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\astc-transcoder\crash_report.h">
       <Filter>Header Files\astc-transcoder</Filter>
     </ClInclude>
   </ItemGroup>

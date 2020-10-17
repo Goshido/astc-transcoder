@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <astc-transcoder/command_line_parser.h>
+#include <astc-transcoder/crash_report.h>
 #include <astc-transcoder/transcoder.h>
 #include <astc-transcoder/version.h>
 
@@ -40,6 +41,9 @@ namespace astc_transcoder {
 
 int main ( int argc, char** argv )
 {
+    if ( !astc_transcoder::InstallCrashReport () )
+        return EXIT_FAILURE;
+
     astc_transcoder::CommandLineParser const parser ( argc,
         argv,
         &astc_transcoder::OnHelp,
