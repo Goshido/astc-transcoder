@@ -5,16 +5,43 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "astc-transcoder", "projects\astc-transcoder\astc-transcoder.vcxproj", "{E09B362C-9FE0-4C43-BD94-BCC539533C9D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "installer", "projects\installer\installer.vcxproj", "{191FE68D-F335-47A1-891E-1AF6824BEDD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D} = {E09B362C-9FE0-4C43-BD94-BCC539533C9D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Installer|x64 = Installer|x64
+		Installer|x86 = Installer|x86
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Debug|x64.ActiveCfg = Debug|x64
 		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Debug|x64.Build.0 = Debug|x64
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Debug|x86.ActiveCfg = Debug|Win32
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Debug|x86.Build.0 = Debug|Win32
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Installer|x64.ActiveCfg = Installer|x64
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Installer|x64.Build.0 = Installer|x64
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Installer|x86.ActiveCfg = Installer|Win32
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Installer|x86.Build.0 = Installer|Win32
 		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Release|x64.ActiveCfg = Release|x64
 		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Release|x64.Build.0 = Release|x64
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Release|x86.ActiveCfg = Release|Win32
+		{E09B362C-9FE0-4C43-BD94-BCC539533C9D}.Release|x86.Build.0 = Release|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Debug|x64.ActiveCfg = Installer|x64
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Debug|x86.ActiveCfg = Debug|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Debug|x86.Build.0 = Debug|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Installer|x64.ActiveCfg = Installer|x64
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Installer|x64.Build.0 = Installer|x64
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Installer|x86.ActiveCfg = Installer|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Installer|x86.Build.0 = Installer|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Release|x64.ActiveCfg = Installer|x64
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Release|x86.ActiveCfg = Release|Win32
+		{191FE68D-F335-47A1-891E-1AF6824BEDD5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
